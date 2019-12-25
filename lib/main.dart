@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 /// Donut chart example. This is a simple pie chart with a hole in the middle.
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pie_chart/pie_chart.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+      fontFamily: 'Gotham',
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -48,6 +48,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int counter;
   var grad = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -55,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    counter=500;
     // dataMap.putIfAbsent("Flutter", () => 5);
     // dataMap.putIfAbsent("React", () => 3);
     // dataMap.putIfAbsent("Xamarin", () => 2);
@@ -68,13 +70,22 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      // _counter++;
+      counter+=10;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var chart = DonutPieChart.withSampleData();
+    var text = new Text(
+            counter.toString()+'€',
+      style: TextStyle(fontWeight: FontWeight.w800,fontSize: 18),
+);
+    var recap= new Stack(children: <Widget>[
+      chart,
+      Center(child: text)
+]
+);
     var bar = new Container(
       height: 120.0,
       decoration: BoxDecoration(gradient: grad),
@@ -82,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var button = new Container(
       padding: const EdgeInsets.all(16.0),
       child: GestureDetector(
-        onTap: () {},
+        onTap: ()=>_incrementCounter(),
         child: Container(
           height: 60.0,
           decoration: BoxDecoration(
@@ -91,11 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           child: Center(
             child: Text(
-              'Press',
+              'ADD EXPANSE',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
+                fontSize: 14,
               ),
             ),
           ),
@@ -103,25 +113,26 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     var dash = new Container(
-        child: Column(children: <Widget>[Expanded(child: chart), button]),
+        child: Column(children: <Widget>[Expanded(child: recap), button]),
         //  new Stack(
         //   children: <Widget>[
         //     chart,
 
         //   ],
         // ),
-        margin: EdgeInsets.only(top: 60.0),
+        margin: EdgeInsets.only(top: 90.0),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.only(
                 topLeft: const Radius.circular(20.0),
                 topRight: const Radius.circular(20.0))));
-    return Stack(
+    return Scaffold(
+      body: Stack(
       children: <Widget>[
         bar,
         dash,
       ],
-    );
+    ));
   }
 }
 
