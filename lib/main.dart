@@ -47,11 +47,11 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-Map<String, double> dataMap = new Map();
-
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
-
+  var grad = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: <Color>[Colors.purple, Colors.indigo]);
   @override
   void initState() {
     super.initState();
@@ -74,63 +74,53 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var dpc = DonutPieChart.withSampleData();
-
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Container(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Stack(
-          children: <Widget>[
-            // Container(
-            //   //color: Colors.blue,
-            //   height: 300.0,
-            //   width: 300.0,
-            //   child: dpc,
-            // ),
-            dpc,
-            Center(
-              child: Text(
-                "600€",
-                style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold),
+    var chart = DonutPieChart.withSampleData();
+    var bar = new Container(
+      height: 120.0,
+      decoration: BoxDecoration(gradient: grad),
+    );
+    var button = new Container(
+      padding: const EdgeInsets.all(16.0),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: 60.0,
+          decoration: BoxDecoration(
+            gradient: grad,
+            borderRadius: BorderRadius.circular(40),
+          ),
+          child: Center(
+            child: Text(
+              'Press',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
               ),
-            )
-            // Container(
-            //  // color: Colors.blue,
-            //   height: 300.0,
-            //   width: 300.0,
-            //   child: PieChart(dataMap: dataMap, showLegends: false,),
-            // )
-            // ,
-            /*  Text(
-              'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),*/
-          ],
+          ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+    var dash = new Container(
+        child: Column(children: <Widget>[Expanded(child: chart), button]),
+        //  new Stack(
+        //   children: <Widget>[
+        //     chart,
+
+        //   ],
+        // ),
+        margin: EdgeInsets.only(top: 60.0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(20.0),
+                topRight: const Radius.circular(20.0))));
+    return Stack(
+      children: <Widget>[
+        bar,
+        dash,
+      ],
     );
   }
 }
@@ -147,7 +137,6 @@ class DonutPieChart extends StatelessWidget {
       _createSampleData(),
       // Disable animations for image tests.
       animate: true,
-      
     );
   }
 
@@ -155,7 +144,7 @@ class DonutPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return new charts.PieChart(seriesList,
         animate: animate,
-        animationDuration:Duration(milliseconds: 1000),
+        animationDuration: Duration(milliseconds: 1000),
         // Configure the width of the pie slices to 60px. The remaining space in
         // the chart will be left as a hole in the center.
         defaultRenderer: new charts.ArcRendererConfig(arcWidth: 80));
