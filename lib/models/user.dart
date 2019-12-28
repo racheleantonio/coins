@@ -11,7 +11,8 @@ class User {
 
 class Month {
   String name;
-  HashMap<Category, List<Expanse>> month_expanses;
-  Month({this.month_expanses, this.name});
+  int total;
+  HashMap<Category, List<Expanse>> monthExpanses;
+  Month({this.monthExpanses, this.name, this.total});
 }
 

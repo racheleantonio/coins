@@ -8,11 +8,11 @@ class MonthSelector extends StatefulWidget {
 
 class _MonthSelectorState extends State<MonthSelector> {
   int selectedIndex=0;
-  final List<String> months=["December","Jenuary", "February","March"];
+  final List<String> months=["December","Jenuary", "February","March", "April", "May", "June"];
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
+      height: 60.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount:months.length,
@@ -28,11 +28,11 @@ class _MonthSelectorState extends State<MonthSelector> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 20,vertical: 30
+                    horizontal: 40,vertical: 16
                   ), child: Text(
                     months[index],
                     style: TextStyle(
-                      color:index== selectedIndex? Colors.white: Colors.white60,fontSize: 20, fontWeight: FontWeight.bold
+                      color:index== selectedIndex? Colors.white: Colors.white60,fontSize: 16, fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
