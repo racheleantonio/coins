@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 enum Category { food, travel, cinema, transport }
-final List<String> categories = ["Food", "Travel", "Cinema", "Transport"];
+final List<String> categories = ["Food", "Travel", "Cinema", "Transport", "Home","Shopping"];
 final Map<String,IconData> icons= {
   "Food":Icons.fastfood ,
   "Transport":Icons.train,
   "Travel":Icons.flight,
   "Cinema":Icons.movie,
+  "Home":Icons.home,
+  "Shopping": Icons.shopping_basket
 };
 var grad = LinearGradient(
       begin: Alignment.centerLeft,

@@ -61,8 +61,8 @@ class HomeScreenState extends State<HomeScreen> {
       ],
     );
     var recap = new Container(
-        height: 300,
-        width: 300,
+        height: 250,
+        width: 250,
         child: new Stack(children: <Widget>[chart, Center(child: total)]));
 
     var button = new Container(
@@ -108,9 +108,10 @@ class HomeScreenState extends State<HomeScreen> {
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    recap,
                     // Expanded(child: recap),
                     CategoryList(),
-                    // button,
+                    button,
                   ],
                 ),
                 decoration: BoxDecoration(
