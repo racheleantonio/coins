@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pie_chart/pie_chart.dart';
 import 'package:testProject/widgets/category_list.dart';
 import 'package:testProject/widgets/chart.dart';
 import '../shared/util.dart';

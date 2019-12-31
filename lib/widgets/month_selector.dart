@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testProject/models/user.dart';
 import '../shared/util.dart';
 
 class MonthSelector extends StatefulWidget {
@@ -7,15 +8,14 @@ class MonthSelector extends StatefulWidget {
 }
 
 class _MonthSelectorState extends State<MonthSelector> {
-  int selectedIndex=0;
-  final List<String> months=["December","Jenuary", "February","March", "April", "May", "June"];
+  int selectedIndex=user.month.length;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount:months.length,
+        itemCount: user.month.length,
         itemBuilder:(BuildContext context, int index){
           return 
           GestureDetector(
@@ -30,7 +30,8 @@ class _MonthSelectorState extends State<MonthSelector> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 40,vertical: 16
                   ), child: Text(
-                    months[index],
+                    user.month[index].name,
+                    // months[index],
                     style: TextStyle(
                       color:index== selectedIndex? Colors.white: Colors.white60,fontSize: 16, fontWeight: FontWeight.bold
                     ),
