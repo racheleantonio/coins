@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testProject/models/user.dart';
 import 'package:testProject/shared/util.dart';
 
 class CategoryList extends StatefulWidget {
@@ -7,6 +8,8 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
+  var categories=user.month[user.selectedMonth].expenseForCategory;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -25,7 +28,7 @@ class _CategoryListState extends State<CategoryList> {
                           BoxDecoration(gradient: grad2, shape: BoxShape.circle),
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
-                        icons[categories[index]],
+                        icons[categoryList[index]],
                         color: Colors.white,
                         size: 20.0,
                         semanticLabel: 'Text to announce in accessibility modes',
@@ -35,7 +38,7 @@ class _CategoryListState extends State<CategoryList> {
                     Column(
                       children: <Widget>[
                         Text(
-                          categories[index],
+                          categoryList[index],
                           style: TextStyle(
                               fontSize: 14),
                         )
@@ -46,7 +49,7 @@ class _CategoryListState extends State<CategoryList> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    Text("1000\$",style: TextStyle(
+                    Text(categories[index].total.toString(),style: TextStyle(
                               fontSize: 12, )),
                     Text("43%",style:TextStyle(color: Colors.grey[800],fontSize: 10,))
                   ],

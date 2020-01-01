@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:testProject/models/user.dart';
-import '../shared/util.dart';
 
 class MonthSelector extends StatefulWidget {
   @override
@@ -22,6 +21,7 @@ class _MonthSelectorState extends State<MonthSelector> {
             onTap:(){
               setState(() {
                 selectedIndex=index;
+                user.selectedMonth=index;
               });
             } ,
             child: Column(
