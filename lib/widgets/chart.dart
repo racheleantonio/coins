@@ -1,56 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class DonutPieChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
+class HomePage extends StatefulWidget {
+  _HomePageState createState() => _HomePageState();
+}
 
-  DonutPieChart(this.seriesList, {this.animate});
+class _HomePageState extends State<HomePage> {
+  List<charts.Series<Task, String>> _seriesPieData;
 
-  /// Creates a [PieChart] with sample data and no transition.
-  factory DonutPieChart.withSampleData() {
-    return new DonutPieChart(
-      _createSampleData(),
-      animate: true,
+  _generateData() {
+   
+    var piedata = [
+      new Task('Work', 35.8,  Colors.indigo[800]),
+      new Task('Eat', 8.3, Colors.purple[800]),
+      new Task('Commute', 10.8, Colors.purple[400]),
+      new Task('TV', 15.6, Colors.purple[600]),
+      new Task('Sleep', 19.2,Colors.indigo[600]),
+      new Task('Other', 10.3, Colors.indigo[400]),
+    ];
+
+    _seriesPieData.add(
+      charts.Series(
+        domainFn: (Task task, _) => task.task,
+        measureFn: (Task task, _) => task.taskvalue,
+        colorFn: (Task task, _) =>
+            charts.ColorUtil.fromDartColor(task.colorval),
+        id: 'Air Pollution',
+        data: piedata,
+        labelAccessorFn: (Task row, _) => '${row.taskvalue}',
+      ),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new charts.PieChart(seriesList,
-        animate: animate,
-        animationDuration: Duration(milliseconds: 1000),
-        // Configure the width of the pie slices to 60px. The remaining space in
-        // the chart will be left as a hole in the center.
-        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 50));
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _seriesPieData = List<charts.Series<Task, String>>();
+    _generateData();
   }
 
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      new LinearSales(0, 100),
-      new LinearSales(1, 333),
-      new LinearSales(2, 333),
-      new LinearSales(666, 333),
-    ];
-
-    return [
-      new charts.Series<LinearSales, int>(
-        id: 'Sales',
-        seriesColor: charts.ColorUtil.fromDartColor(Colors.white),
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        // colorFn: (LinearSales sales, _)=> Colors.red,
-        data: data,
-      )
-    ];
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: charts.PieChart(_seriesPieData,
+          animate: true,
+          animationDuration: Duration(seconds: 1),
+          // behaviors: [
+          //   new charts.DatumLegend(
+          //     outsideJustification: charts.OutsideJustification.endDrawArea,
+          //     horizontalFirst: false,
+          //     desiredMaxRows: 2,
+          //     cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+          //     entryTextStyle: charts.TextStyleSpec(
+          //         color: charts.MaterialPalette.purple.shadeDefault,
+          //         fontFamily: 'Georgia',
+          //         fontSize: 11),
+          //   )
+          // ],
+          defaultRenderer: new charts.ArcRendererConfig(
+              arcWidth: 40,
+              arcRendererDecorators: [
+                new charts.ArcLabelDecorator(
+                    labelPosition: charts.ArcLabelPosition.inside)
+              ])),
+    );
   }
 }
 
-/// Sample linear data type.
-class LinearSales {
-  final int year;
-  final int sales;
+class Pollution {
+  String place;
+  int year;
+  int quantity;
 
-  LinearSales(this.year, this.sales);
+  Pollution(this.year, this.place, this.quantity);
+}
+
+class Task {
+  String task;
+  double taskvalue;
+  Color colorval;
+
+  Task(this.task, this.taskvalue, this.colorval);
+}
+
+class Sales {
+  int yearval;
+  int salesval;
+
+  Sales(this.yearval, this.salesval);
 }

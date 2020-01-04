@@ -4,6 +4,7 @@ import 'package:testProject/widgets/category_list.dart';
 import 'package:testProject/widgets/chart.dart';
 import '../shared/util.dart';
 import '../widgets/month_selector.dart';
+import 'package:testProject/models/user.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -20,7 +21,6 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
-
     counter = 500;
     // dataMap.putIfAbsent("Flutter", () => 5);
     // dataMap.putIfAbsent("React", () => 3);
@@ -30,21 +30,23 @@ class HomeScreenState extends State<HomeScreen> {
 
   void _incrementCounter() {
     setState(() {
+      user.add(ex1, "Cinema");
+       user.add(ex2, "Travel");
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      counter += 10;
+      // counter += 10;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var chart = DonutPieChart.withSampleData();
+    var chart = HomePage();
 
     var total = new Text(
-      counter.toString() + '€',
+      user.month[user.selectedMonth].total.toStringAsFixed (2) + '€',
       style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
       textAlign: TextAlign.center,
     );

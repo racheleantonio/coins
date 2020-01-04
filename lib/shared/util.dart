@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum Category { food, travel, cinema, transport }
 final List<String> categoryList = ["Food", "Travel", "Cinema", "Transport", "Home","Shopping"];
 final Map<String,IconData> icons= {
   "Food":Icons.fastfood ,
