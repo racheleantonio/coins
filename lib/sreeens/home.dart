@@ -15,23 +15,53 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  int counter;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
-    counter = 500;
     // dataMap.putIfAbsent("Flutter", () => 5);
     // dataMap.putIfAbsent("React", () => 3);
     // dataMap.putIfAbsent("Xamarin", () => 2);
     // dataMap.putIfAbsent("Ionic", () => 2);
   }
 
-  void _incrementCounter() {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(gradient: grad),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: new Center(
+              child: Text(
+            "Your expenses",
+            textAlign: TextAlign.center,
+          )),
+        ),
+        
+        body:
+        
+         Dash(),
+      ),
+    );
+  }
+}
+
+class Dash extends StatefulWidget {
+  @override
+  _DashState createState() => _DashState();
+}
+
+class _DashState extends State<Dash> {
+    void _incrementCounter() {
     setState(() {
       user.add(ex1, "Cinema");
-       user.add(ex2, "Travel");
+      user.add(ex2, "Travel");
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
@@ -40,18 +70,15 @@ class HomeScreenState extends State<HomeScreen> {
       // counter += 10;
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    var chart = HomePage();
-
     var total = new Text(
-      user.month[user.selectedMonth].total.toStringAsFixed (2) + '€',
+      user.month[user.selectedMonth].total.toStringAsFixed(2) + '€',
       style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
       textAlign: TextAlign.center,
     );
     var average = new Text(
-      'Montly Average\n' + counter.toString() + '€',
+      'Montly Average\n' + "TODO".toString() + '€',
       style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
       textAlign: TextAlign.center,
     );
@@ -61,6 +88,8 @@ class HomeScreenState extends State<HomeScreen> {
         average,
       ],
     );
+    var chart = HomePage();
+
     var recap = new Container(
         height: 250,
         width: 250,
@@ -89,43 +118,50 @@ class HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    return Container(
-      decoration: BoxDecoration(gradient: grad),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: new Center(
-              child: Text(
-            "Your expenses",
-            textAlign: TextAlign.center,
-          )),
-        ),
-        body: Column(
-          children: <Widget>[
-            MonthSelector(),
-            Expanded(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    recap,
-                    // Expanded(child: recap),
-                    CategoryList(),
-                    button,
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40))),
-              ),
+    return Column(
+      children: <Widget>[
+        MonthSelector(),
+        Expanded(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                recap,
+                // Expanded(child: recap),
+                CategoryList(),
+                button,
+              ],
             ),
-            // bar,
-            // dash,
-          ],
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40))),
+          ),
         ),
+        // bar,
+        // dash,
+      ],
+    );
+  }
+}
+
+class AddExpanse extends StatefulWidget {
+  @override
+  _AddExpanseState createState() => _AddExpanseState();
+}
+
+class _AddExpanseState extends State<AddExpanse> {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: <Widget>[],
+        ),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40), topRight: Radius.circular(40))),
       ),
     );
   }

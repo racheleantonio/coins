@@ -10,14 +10,17 @@ class _HomePageState extends State<HomePage> {
   List<charts.Series<Task, String>> _seriesPieData;
 
   _generateData() {
-   
+// var cols=[ #9c27b0, #942eb2, #8c34b4,       #843ab6,     #7b3eb7, #7341b8,     #6c44b8,      #6447b  #5b4ab8, #524db7, #494fb6, #3f51b5];
+
     var piedata = [
-      new Task('Work', 35.8,  Colors.indigo[800]),
-      new Task('Eat', 8.3, Colors.purple[800]),
-      new Task('Commute', 10.8, Colors.purple[400]),
-      new Task('TV', 15.6, Colors.purple[600]),
-      new Task('Sleep', 19.2,Colors.indigo[600]),
-      new Task('Other', 10.3, Colors.indigo[400]),
+      new Task('Work', 35.8, Color(0xff9c27b0)),
+      new Task('Eeat', 18.3, Color(0xff843ab6)),
+      new Task('Commute', 10.8, Color(0xff6c44b8)),
+      new Task('TV', 15.6, Color(0xff524db7)),
+      new Task('Sleep', 19.2, Color(0xff3f51b5)),
+      new Task('Other', 10.3, Color(0xff524db7)),
+      new Task('Orther', 10.3, Color(0xff6c44b8)),
+      new Task('Eat', 8.3, Color(0xff843ab6)),
     ];
 
     _seriesPieData.add(
