@@ -79,7 +79,7 @@ Expanse ex2 = new Expanse(
 
 Month nov = new Month.mock("November");
 Month oct = new Month.mock("December");
-User user = User.mock('Ciccio', [new Month()]);
+User user = User.mock('Ciccio', [oct, nov,new Month()]);
 // user.selectedMonth=2;
 var s = user.add(ex1, "Food");
 var c = user.add(ex2, "Travel");

@@ -22,7 +22,7 @@ class _CategoryListState extends State<CategoryList> {
           String p=perc.toStringAsFixed(2);
           // p=p!="NaN"?p:"0.00";
           return Container(
-            margin: EdgeInsets.only(top:4,right:20,bottom:4,left:20),
+            margin: EdgeInsets.only(top:4,bottom:4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
