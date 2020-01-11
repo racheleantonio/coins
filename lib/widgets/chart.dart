@@ -1,17 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:testProject/models/user.dart';
+import 'package:testProject/shared/util.dart';
 
-class HomePage extends StatefulWidget {
-  _HomePageState createState() => _HomePageState();
-}
 
-class _HomePageState extends State<HomePage> {
-  List<charts.Series<Task, String>> _seriesPieData;
+// class HomePage extends StatefulWidget {
+//   _HomePageState createState() => _HomePageState();
+// }
 
-  _generateData() {
+// class _HomePageState extends State<HomePage> {
+
+class Chart extends StatelessWidget {
+  final int index;
+  Chart({@required this.index});
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _seriesPieData = List<charts.Series<Task, String>>();
+  //   _generateData();
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    List<charts.Series<Task, String>> _seriesPieData;
+
+    _seriesPieData = List<charts.Series<Task, String>>();
+    var categories = user.month[index].expenseForCategory;
+
 // var cols=[ #9c27b0, #942eb2, #8c34b4,       #843ab6,     #7b3eb7, #7341b8,     #6c44b8,      #6447b  #5b4ab8, #524db7, #494fb6, #3f51b5];
-
+  
+    var data= new List<Task>.generate(categoryList.length, (int index) {
+      return Task(categories[index].name, categories[index].total, colors[index%colors.length]);
+    });
+  
     var piedata = [
       new Task('Work', 35.8, Color(0xff9c27b0)),
       new Task('Eeat', 18.3, Color(0xff843ab6)),
@@ -29,23 +52,13 @@ class _HomePageState extends State<HomePage> {
         measureFn: (Task task, _) => task.taskvalue,
         colorFn: (Task task, _) =>
             charts.ColorUtil.fromDartColor(task.colorval),
-        id: 'Air Pollution',
-        data: piedata,
+        id: 'Cagegory',
+        // data: piedata,
+        data:data,
         labelAccessorFn: (Task row, _) => '${row.taskvalue}',
       ),
     );
-  }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _generateData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       child: charts.PieChart(_seriesPieData,
           animate: true,
@@ -72,13 +85,13 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class Pollution {
-  String place;
-  int year;
-  int quantity;
+// class Pollution {
+//   String place;
+//   int year;
+//   int quantity;
 
-  Pollution(this.year, this.place, this.quantity);
-}
+//   Pollution(this.year, this.place, this.quantity);
+// }
 
 class Task {
   String task;
@@ -88,9 +101,9 @@ class Task {
   Task(this.task, this.taskvalue, this.colorval);
 }
 
-class Sales {
-  int yearval;
-  int salesval;
+// class Sales {
+//   int yearval;
+//   int salesval;
 
-  Sales(this.yearval, this.salesval);
-}
+//   Sales(this.yearval, this.salesval);
+// }
