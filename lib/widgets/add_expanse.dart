@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:testProject/widgets/radio_button.dart';
 import '../shared/util.dart';
 import 'package:testProject/models/user.dart';
 
@@ -87,15 +88,25 @@ class _AddExpanseState extends State<AddExpanse> {
       ),
     );
 
-    return
-        // button;
-        Column(
-      children: <Widget>[
-        Expanded(
-          child: Container(
+    return Container(
+      padding: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(36), topRight: Radius.circular(36))),
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
             child: TextField(
-              decoration: InputDecoration.collapsed(hintText: '\€0.00'),
-              style: TextStyle(fontSize: 32.0, color: Colors.black87),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: '\€0.00',
+                // prefix: Text('\€'),
+                // prefixStyle:  TextAlign.center,
+              ),
+              //  InputDecoration.collapsed(hintText: '\€0.00'),
+              style: TextStyle(fontSize: 40.0, color: Colors.black87),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               autofocus: true,
@@ -112,77 +123,38 @@ class _AddExpanseState extends State<AddExpanse> {
               },
               onEditingComplete: _submit,
             ),
-
-            //       InputValidationPage(
-            //   title: 'Make a payment',
-            //   inputDecoration: InputDecoration.collapsed(hintText: '\$0.00'),
-            //   textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
-            //   textAlign: TextAlign.center,
-            //   submitText: 'Submit',
-            //   keyboardType: TextInputType.number,
-            //   inputFormatter: ValidatorInputFormatter(
-            //     editingValidator: DecimalNumberEditingRegexValidator(),
-            //   ),
-            //   submitValidator: DecimalNumberSubmitValidator(),
-            //   onSubmit: (value) => null
-            //   // _onSubmit(context, value),
-            // ),
-            //  button,
-            // PageView(
-            //     controller: controller,
-            //     onPageChanged: _onPageViewChange,
-            //     scrollDirection: Axis.horizontal,
-            //     children: [
-            //       Page(),
-            //       Page(),
-            //       Page(),
-            //     ]),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(36),
-                    topRight: Radius.circular(36))),
           ),
-        ),
-        new Container(
-          color: Colors.white,
-          padding: const EdgeInsets.all(16.0),
-          child: GestureDetector(
-            onTap: () => _incrementCounter(),
-            child: Opacity(
-              opacity: valid ? 1.0 : 0.5,
-              child: Container(
-                height: 60.0,
-                decoration: BoxDecoration(
-                  gradient: grad,
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: Center(
-                  child: Text(
-                    'ADD EXPANSE',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
+        
+                  CustomRadio(),
+  new Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              onTap: () => _incrementCounter(),
+              child: Opacity(
+                opacity: valid ? 1.0 : 0.5,
+                child: Container(
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    gradient: grad,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'ADD EXPANSE',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
-    // return Expanded(
-    //   child: Container(
-    //     child: Column(
-    //       children: <Widget>[],
-    //     ),
-    //     decoration: BoxDecoration(
-    //         color: Colors.lightBlue,
-    //         borderRadius: BorderRadius.only(
-    //             topLeft: Radius.circular(40), topRight: Radius.circular(40))),
-    //   ),
-    // );
   }
 }
 

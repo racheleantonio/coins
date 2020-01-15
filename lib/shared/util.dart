@@ -27,8 +27,11 @@ var grad2 = LinearGradient(
 
 var colors = [
   Color(0xff9c27b0),
-  Color(0xff843ab6),
+  Color(0xff6c44b8),
   Color(0xff6c44b8),
   Color(0xff524db7),
-  Color(0xff3f51b5)
+  Color(0xff3f51b5),
+    Color(0xff524db7),
+  Color(0xff6c44b8),
+  Color(0xff6c44b8),
 ];

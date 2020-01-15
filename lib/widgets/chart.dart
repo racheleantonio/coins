@@ -53,8 +53,8 @@ class Chart extends StatelessWidget {
         colorFn: (Task task, _) =>
             charts.ColorUtil.fromDartColor(task.colorval),
         id: 'Cagegory',
-        // data: piedata,
-        data:data,
+        data: piedata,
+        // data:data,
         labelAccessorFn: (Task row, _) => '${row.taskvalue}',
       ),
     );
