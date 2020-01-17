@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:testProject/widgets/date_picker.dart';
 import 'package:testProject/widgets/radio_button.dart';
 import '../shared/util.dart';
+// import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:testProject/models/user.dart';
 
 class DecimalNumberEditingRegexValidator extends RegexValidator {
@@ -30,6 +33,44 @@ class AddExpanse extends StatefulWidget {
 }
 
 class _AddExpanseState extends State<AddExpanse> {
+  DateTime selectedDate = DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showRoundedDatePicker(
+      context: context,
+      // imageHeader: AssetImage("assets/images/calendar_header.jpg"),
+      firstDate: DateTime(selectedDate.year,selectedDate.month,1),
+      lastDate: DateTime(selectedDate.year,selectedDate.month,31),
+      borderRadius: 28,
+
+      // background: Colors.white,
+      theme: ThemeData(
+          fontFamily: "Gotham",
+      ),
+    );
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+    // DateTime newDateTime = await showRoundedDatePicker(
+    //   context: context,
+    //   background: Colors.white,
+    //   theme: ThemeData(
+    //     primaryColor: Colors.red[400],
+    //     accentColor: Colors.green[800],
+    //     dialogBackgroundColor: Colors.purple[50],
+    //     textTheme: TextTheme(
+    //       body1: TextStyle(color: Colors.red),
+    //       caption: TextStyle(color: Colors.blue),
+    //     ),
+    //     disabledColor: Colors.orange,
+    //     accentTextTheme: TextTheme(
+    //       body2: TextStyle(color: Colors.green[200]),
+    //     ),
+    //   ),
+    // );
+  }
+
   FocusNode _focusNode = FocusNode();
   String _value = '';
   DecimalNumberSubmitValidator submitValidator = DecimalNumberSubmitValidator();
@@ -61,9 +102,22 @@ class _AddExpanseState extends State<AddExpanse> {
   Widget build(BuildContext context) {
     bool valid = submitValidator.isValid(_value);
 
-    var button = new Container(
+    var causal = new TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      decoration: InputDecoration(
+        hintText: 'Causal',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+      // validator: FormValidator().validateEmail,
+      // onSaved: (String value) {
+      //   _loginData.email = value;
+      // },
+    );
+    var createButton = new Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(16.0),
+      // padding: const EdgeInsets.all(16.0),
       child: GestureDetector(
         onTap: () => _incrementCounter(),
         child: Opacity(
@@ -88,70 +142,51 @@ class _AddExpanseState extends State<AddExpanse> {
       ),
     );
 
+    var amount = TextField(
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: '\€0.00',
+        // prefix: Text('\€'),
+        // prefixStyle:  TextAlign.center,
+      ),
+      //  InputDecoration.collapsed(hintText: '\€0.00'),
+      style: TextStyle(fontSize: 40.0, color: Colors.black87),
+      textAlign: TextAlign.center,
+      keyboardType: TextInputType.number,
+      autofocus: true,
+      autocorrect: false,
+      textInputAction: TextInputAction.done,
+      inputFormatters: [
+        ValidatorInputFormatter(
+          editingValidator: DecimalNumberEditingRegexValidator(),
+        ),
+      ],
+      focusNode: _focusNode,
+      onChanged: (value) {
+        setState(() => _value = value);
+      },
+      onEditingComplete: _submit,
+    );
     return Container(
-      padding: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
+      padding: EdgeInsets.only(top: 40.0, right: 16.0, left: 16.0),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(36), topRight: Radius.circular(36))),
       child: Column(
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(top: 60.0, right: 16.0, left: 16.0),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: '\€0.00',
-                // prefix: Text('\€'),
-                // prefixStyle:  TextAlign.center,
-              ),
-              //  InputDecoration.collapsed(hintText: '\€0.00'),
-              style: TextStyle(fontSize: 40.0, color: Colors.black87),
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              autofocus: true,
-              autocorrect: false,
-              textInputAction: TextInputAction.done,
-              inputFormatters: [
-                ValidatorInputFormatter(
-                  editingValidator: DecimalNumberEditingRegexValidator(),
-                ),
-              ],
-              focusNode: _focusNode,
-              onChanged: (value) {
-                setState(() => _value = value);
-              },
-              onEditingComplete: _submit,
-            ),
+          amount,
+          CustomRadio(),
+          Text("${selectedDate.toLocal()}".split(' ')[0]),
+          SizedBox(
+            height: 20.0,
           ),
-        
-                  CustomRadio(),
-  new Container(
-            color: Colors.white,
-            padding: const EdgeInsets.all(16.0),
-            child: GestureDetector(
-              onTap: () => _incrementCounter(),
-              child: Opacity(
-                opacity: valid ? 1.0 : 0.5,
-                child: Container(
-                  height: 60.0,
-                  decoration: BoxDecoration(
-                    gradient: grad,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'ADD EXPANSE',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          RaisedButton(
+            onPressed: () => _selectDate(context),
+            child: Text('Select date'),
           ),
+          causal,
+          createButton,
         ],
       ),
     );

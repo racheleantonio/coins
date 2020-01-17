@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:testProject/models/user.dart';
 import 'package:testProject/shared/util.dart';
 
+
 // class CategoryList extends StatefulWidget {
 //   CategoryList({@required this.index});
 //   final int index;
@@ -47,7 +48,8 @@ class CategoryList extends StatelessWidget {
                       decoration: BoxDecoration(
                           gradient: grad2, shape: BoxShape.circle),
                       padding: EdgeInsets.all(8.0),
-                      child: Icon(
+                      child: 
+                      Icon(
                         icons[categories[index].name],
                         color: Colors.white,
                         size: 20.0,
