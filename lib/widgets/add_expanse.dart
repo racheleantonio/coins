@@ -38,14 +38,11 @@ class _AddExpanseState extends State<AddExpanse> {
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showRoundedDatePicker(
       context: context,
-      // imageHeader: AssetImage("assets/images/calendar_header.jpg"),
-      firstDate: DateTime(selectedDate.year,selectedDate.month,1),
-      lastDate: DateTime(selectedDate.year,selectedDate.month,31),
-      borderRadius: 28,
-
+      firstDate: DateTime(selectedDate.year, selectedDate.month, 1),
+      lastDate: DateTime(selectedDate.year, selectedDate.month, 31),
       // background: Colors.white,
       theme: ThemeData(
-          fontFamily: "Gotham",
+        fontFamily: "Gotham",
       ),
     );
     if (picked != null && picked != selectedDate)
@@ -174,18 +171,22 @@ class _AddExpanseState extends State<AddExpanse> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(36), topRight: Radius.circular(36))),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           amount,
           CustomRadio(),
-          Text("${selectedDate.toLocal()}".split(' ')[0]),
           SizedBox(
             height: 20.0,
           ),
-          RaisedButton(
+          FlatButton(
             onPressed: () => _selectDate(context),
-            child: Text('Select date'),
+            child: Text("${selectedDate.toLocal()}".split(' ')[0]),
+            // Text('Select date'),
           ),
-          causal,
+          // causal,
+          Flexible(child: causal),
+
           createButton,
         ],
       ),
