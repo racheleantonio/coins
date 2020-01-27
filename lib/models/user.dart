@@ -1,9 +1,7 @@
-import 'package:testProject/shared/util.dart';
 import 'expanse.dart';
 import 'package:intl/intl.dart';
 
 class User {
-  int selectedMonth;
   String name;
   List<Month> month;
   double average;
@@ -11,12 +9,10 @@ class User {
   User.mock(name, month)
       : this.name = name,
         this.average = 0.0,
-        this.selectedMonth = 0,
         this.month = month;
   User(name)
       : this.name = name,
         this.average = 0.0,
-        this.selectedMonth = 1,
         this.month = [new Month()];
 
   void add(Expanse e, String c) {
@@ -24,6 +20,14 @@ class User {
           if (c == c1.name) {c1.list.add(e), c1.total += e.amount}
         });
     month[selectedMonth].total += e.amount;
+  }
+
+  void printC() {
+    print("month: " + selectedMonth.toString());
+
+    print("category: " + selectedCategory.toString());
+
+    print("expanse: " + selectedExpanse.toString());
   }
 }
 
@@ -75,11 +79,16 @@ Expanse ex1 = new Expanse(
     causal: "Plane ticket",
     data: new DateTime(2019, 11, 11, 11, 11));
 Expanse ex2 = new Expanse(
-    amount: 32.33, causal: "Launch", data: new DateTime(2019, 11, 12, 11, 11));
-
+    amount: 32.33, causal: "Lunch", data: new DateTime(2019, 11, 12, 11, 11));
+Expanse ex3 = new Expanse(
+    amount: 232.33, causal: "other", data: new DateTime(2019, 11, 12, 11, 11));
 Month nov = new Month.mock("November");
 Month oct = new Month.mock("December");
-User user = User.mock('Ciccio', [oct, nov,new Month()]);
+User user = User.mock('Ciccio', [oct, nov, new Month()]);
 // user.selectedMonth=2;
 var s = user.add(ex1, "Food");
 var c = user.add(ex2, "Travel");
+var w32d33 = user.add(ex3, "Travel");
+int selectedMonth = 0;
+int selectedExpanse = -1;
+int selectedCategory = -1;

@@ -1,36 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:testProject/models/expanse.dart';
 import 'package:testProject/models/user.dart';
 import 'package:testProject/shared/util.dart';
 
-class CategoryList extends StatelessWidget {
-  CategoryList({
+// class ExpensesList extends StatefulWidget {
+//   ExpensesList({@required this.index});
+//   final int index;
+
+//   @override
+//   _ExpensesListState createState() => _ExpensesListState();
+// }
+
+// class _ExpensesListState extends State<ExpensesList> {
+// // var e=user.selectedMonth=2;
+//   @override
+//   Widget build(BuildContext context) {
+
+class ExpensesList extends StatelessWidget {
+  final Function selectExpanse;
+  ExpensesList({
+    @required this.selectExpanse,
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var categories = user.month[selectedMonth].expenseForCategory;
+    user.printC();
+    List<Expanse> expanses =
+        user.month[selectedMonth].expenseForCategory[selectedCategory].list;
+    // if (expanses.length == 0) return null;
 
     return Expanded(
       child: ListView.builder(
-        itemCount: categories.length,
+        itemCount: expanses.length,
         itemBuilder: (BuildContext context, int index) {
-          double perc = categories[index].total != 0
-              ? (categories[index].total / user.month[selectedMonth].total) *
+          double perc = expanses[index].amount != 0
+              ? (expanses[index].amount /
+                      user.month[selectedMonth]
+                          .expenseForCategory[selectedCategory].total) *
                   100
               : 0.00;
           String p = perc.toStringAsFixed(2);
           // p=p!="NaN"?p:"0.00";
           return GestureDetector(
             onTap: () {
-              user.printC();
-              selectedCategory = index;
-              selectedExpanse = -1;
-              Navigator.pushNamed(
-                context,
-                '/expanse',
-              );
-              // user.selectedMonth = index;
+              selectExpanse(index);
+              // selectedExpanse = index;
             },
             child: Container(
               color: Colors.transparent,
@@ -45,7 +60,7 @@ class CategoryList extends StatelessWidget {
                             gradient: grad2, shape: BoxShape.circle),
                         padding: EdgeInsets.all(8.0),
                         child: Icon(
-                          icons[categories[index].name],
+                          icons[categoryList[selectedCategory]],
                           color: Colors.white,
                           size: 24.0,
                           semanticLabel:
@@ -58,7 +73,7 @@ class CategoryList extends StatelessWidget {
                       Column(
                         children: <Widget>[
                           Text(
-                            categories[index].name,
+                            expanses[index].causal,
                             style: TextStyle(fontSize: 16),
                           )
                         ],
@@ -68,7 +83,7 @@ class CategoryList extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Text(categories[index].total.toStringAsFixed(2) + '€',
+                      Text(expanses[index].amount.toStringAsFixed(2) + '€',
                           style: TextStyle(
                             fontSize: 14,
                           )),

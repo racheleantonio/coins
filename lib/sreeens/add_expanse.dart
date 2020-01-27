@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:testProject/models/expanse.dart';
 import 'package:testProject/widgets/date_picker.dart';
 import 'package:testProject/widgets/radio_button.dart';
 import '../shared/util.dart';
@@ -33,7 +34,11 @@ class AddExpanse extends StatefulWidget {
 }
 
 class _AddExpanseState extends State<AddExpanse> {
+  final myController = TextEditingController();
+  String amount = '';
+  String causal = '';
   DateTime selectedDate = DateTime.now();
+  String category = '';
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showRoundedDatePicker(
@@ -49,74 +54,82 @@ class _AddExpanseState extends State<AddExpanse> {
       setState(() {
         selectedDate = picked;
       });
-    // DateTime newDateTime = await showRoundedDatePicker(
-    //   context: context,
-    //   background: Colors.white,
-    //   theme: ThemeData(
-    //     primaryColor: Colors.red[400],
-    //     accentColor: Colors.green[800],
-    //     dialogBackgroundColor: Colors.purple[50],
-    //     textTheme: TextTheme(
-    //       body1: TextStyle(color: Colors.red),
-    //       caption: TextStyle(color: Colors.blue),
-    //     ),
-    //     disabledColor: Colors.orange,
-    //     accentTextTheme: TextTheme(
-    //       body2: TextStyle(color: Colors.green[200]),
-    //     ),
-    //   ),
-    // );
   }
 
-  FocusNode _focusNode = FocusNode();
-  String _value = '';
+  // FocusNode _focusNode = FocusNode();
   DecimalNumberSubmitValidator submitValidator = DecimalNumberSubmitValidator();
-  void _submit() async {
-    bool valid = submitValidator.isValid(_value);
-    if (valid) {
-      _focusNode.unfocus();
-      // widget.onSubmit(_value);
-    } else {
-      FocusScope.of(context).requestFocus(_focusNode);
-    }
-  }
+  // void _submit() async {
+  //   bool valid = submitValidator.isValid(amount);
+  //   if (valid) {
+  //     _focusNode.unfocus();
+  //     // widget.onSubmit(amount);
+  //   } else {
+  //     FocusScope.of(context).requestFocus(_focusNode);
+  //   }
+  // }
 
   void _incrementCounter() {
+    double a = double.tryParse(amount);
+    Expanse e = new Expanse(amount: a, causal: causal, data: selectedDate);
     setState(() {
-      user.add(ex1, "Cinema");
-      user.add(ex2, "Travel");
+      user.add(e, category);
+      print("Category: "+category+", Amount: "+amount.toString()+" ,Causal"+causal.toString()+" ,Data"+selectedDate.toString());
+      // user.add(ex2, "Travel");
+      // user.add(ex1, "Food");
+      // user.add(ex2, "Travel");
+      // user.add(ex3, "Travel");
       this.widget.addExpanse();
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      // counter += 10;
+    });
+  }
+
+  bool checkInput() {
+    return causal != '' && category != '' && submitValidator.isValid(amount);
+  }
+
+  void changeCategory(index) {
+    setState(() {
+      category = categoryList[index];
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    bool valid = submitValidator.isValid(_value);
-
-    var causal = new TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Causal',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-      // validator: FormValidator().validateEmail,
-      // onSaved: (String value) {
-      //   _loginData.email = value;
-      // },
-    );
+    // bool valid = submitValidator.isValid(amount);
+    bool valid = checkInput();
+    // var dataPicker =
+    // Column(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: <Widget>[
+    //     DatePickerTimeline(
+    //       DateTime.now(),
+    //       onDateChange: (date) {
+    //         // New date selected
+    //         print(date.day.toString());
+    //       },
+    //     ),
+    //   ],
+    // );
+    var causalTextField = new TextFormField(
+        keyboardType: TextInputType.text,
+        autofocus: false,
+        decoration: InputDecoration(
+          hintText: 'Causal',
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        ),
+        onChanged: (value) {
+          setState(() => causal = value);
+        }
+        // validator: FormValidator().validateEmail,
+        // onSaved: (String value) {
+        //   _loginData.email = value;
+        // },
+        );
     var createButton = new Container(
       color: Colors.white,
-      // padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: GestureDetector(
-        onTap: () => _incrementCounter(),
+        onTap: () => !checkInput() ? null : _incrementCounter(),
         child: Opacity(
           opacity: valid ? 1.0 : 0.5,
           child: Container(
@@ -139,7 +152,7 @@ class _AddExpanseState extends State<AddExpanse> {
       ),
     );
 
-    var amount = TextField(
+    TextField amountTextField = TextField(
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: '\€0.00',
@@ -150,7 +163,7 @@ class _AddExpanseState extends State<AddExpanse> {
       style: TextStyle(fontSize: 40.0, color: Colors.black87),
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
-      autofocus: true,
+      // autofocus: true,
       autocorrect: false,
       textInputAction: TextInputAction.done,
       inputFormatters: [
@@ -158,11 +171,11 @@ class _AddExpanseState extends State<AddExpanse> {
           editingValidator: DecimalNumberEditingRegexValidator(),
         ),
       ],
-      focusNode: _focusNode,
+      // focusNode: _focusNode,
       onChanged: (value) {
-        setState(() => _value = value);
+        setState(() => amount = value);
       },
-      onEditingComplete: _submit,
+      // onEditingComplete: _submit,
     );
     return Container(
       padding: EdgeInsets.only(top: 40.0, right: 16.0, left: 16.0),
@@ -174,19 +187,25 @@ class _AddExpanseState extends State<AddExpanse> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          amount,
-          CustomRadio(),
-          SizedBox(
-            height: 20.0,
-          ),
-          FlatButton(
-            onPressed: () => _selectDate(context),
-            child: Text("${selectedDate.toLocal()}".split(' ')[0]),
-            // Text('Select date'),
-          ),
-          // causal,
-          Flexible(child: causal),
+          Expanded(
+            child: Column(
+                // mainAxisSize: MainAxisSize.min,
 
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  amountTextField,
+                  CustomRadio(changeCategory),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  FlatButton(
+                    onPressed: () => _selectDate(context),
+                    child: Text("${selectedDate.toLocal()}".split(' ')[0]),
+                    // Text('Select date'),
+                  ),
+                  causalTextField
+                ]),
+          ),
           createButton,
         ],
       ),

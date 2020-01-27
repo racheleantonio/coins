@@ -18,7 +18,6 @@ class MonthSelector extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 changePage(index);
-                // user.selectedMonth = index;
               },
               child: Column(
                 children: <Widget>[
@@ -28,7 +27,7 @@ class MonthSelector extends StatelessWidget {
                       user.month[index].name,
                       // months[index],
                       style: TextStyle(
-                          color: index == user.selectedMonth
+                          color: index == selectedMonth
                               ? Colors.white
                               : Colors.white60,
                           fontSize: 14,

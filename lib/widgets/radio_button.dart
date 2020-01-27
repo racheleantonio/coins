@@ -3,6 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:testProject/shared/util.dart';
 
 class CustomRadio extends StatefulWidget {
+  Function callback;
+  CustomRadio(this.callback);
+
   @override
   createState() {
     return new CustomRadioState();
@@ -35,6 +38,7 @@ class CustomRadioState extends State<CustomRadio> {
   Widget build(BuildContext context) {
     return Container(
         height: 264.0,
+        width: 400,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: sampleData.length ~/ 2,
@@ -44,13 +48,12 @@ class CustomRadioState extends State<CustomRadio> {
             return Column(
               children: <Widget>[
                 new InkWell(
-                  highlightColor: Colors.red,
-                  splashColor: Colors.blueAccent,
                   onTap: () {
                     setState(() {
                       sampleData
                           .forEach((element) => element.isSelected = false);
                       sampleData[a].isSelected = true;
+                      widget.callback(a);
                     });
                   },
                   child:
@@ -65,6 +68,7 @@ class CustomRadioState extends State<CustomRadio> {
                       sampleData
                           .forEach((element) => element.isSelected = false);
                       sampleData[b].isSelected = true;
+                      widget.callback(b);
                     });
                   },
                   child:
@@ -92,17 +96,7 @@ class RadioItem extends StatelessWidget {
         // color: Colors.grey,
         gradient: grad2,
         borderRadius: const BorderRadius.all(const Radius.circular(28.0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[200],
-            blurRadius: 4.0, // has the effect of softening the shadow
-            spreadRadius: 4.0, // has the effect of extending the shadow
-            // offset: Offset(
-            //   4, // horizontal, move right 10
-            //   4, // vertical, move down 10
-            // ),
-          )
-        ],
+        boxShadow: [boxShadow],
         // borderRadius: new BorderRadius.all(...),
         // gradient: new LinearGradient(...),
       ),
@@ -123,7 +117,9 @@ class RadioItem extends StatelessWidget {
             children: <Widget>[
               Icon(
                 icons[_item.buttonText],
-                color: _item.isSelected ? Colors.white : Colors.purple,
+                color: _item.isSelected
+                    ? Colors.white
+                    : Theme.of(context).accentColor,
                 size: 28.0,
                 semanticLabel: 'Text to announce in accessibility modes',
               ),
@@ -131,7 +127,7 @@ class RadioItem extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 child: new Text(_item.buttonText,
                     style: new TextStyle(
-                        color: _item.isSelected ? Colors.white : Colors.black,
+                        color: _item.isSelected ? Colors.white : null,
                         //fontWeight: FontWeight.bold,
                         fontSize: 14.0)),
               ),

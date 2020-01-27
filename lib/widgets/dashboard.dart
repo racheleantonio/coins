@@ -17,11 +17,11 @@ class Dash extends StatefulWidget {
 class _DashState extends State<Dash> {
   List<Widget> _createChildren() {
     return new List<Widget>.generate(user.month.length, (int index) {
-      return Page(index:index);
+      return Page(index: index);
     });
   }
 
-  final controller = PageController(initialPage: user.selectedMonth);
+  final controller = PageController(initialPage: selectedMonth);
 
   void _incrementCounter() {
     setState(() {
@@ -33,14 +33,20 @@ class _DashState extends State<Dash> {
 
   void _onPageViewChange(int page) {
     setState(() {
-      user.selectedMonth = page;
-      print(page);
+      selectedMonth = page;
+      selectedCategory = -1;
+      selectedExpanse = -1;
+      user.printC();
     });
   }
 
   void changePage(int page) {
     setState(() {
-      user.selectedMonth = page;
+      selectedMonth = page;
+      selectedCategory = -1;
+      selectedExpanse = -1;
+      user.printC();
+
       controller.animateToPage(page,
           duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
@@ -54,7 +60,7 @@ class _DashState extends State<Dash> {
       child: GestureDetector(
         onTap: () => _incrementCounter(),
         child: Container(
-          height: 60.0,
+          height: 66.0,
           decoration: BoxDecoration(
             gradient: grad,
             borderRadius: BorderRadius.circular(40),
@@ -82,9 +88,9 @@ class _DashState extends State<Dash> {
                   onPageChanged: _onPageViewChange,
                   scrollDirection: Axis.horizontal,
                   children: [
-                    Page(index:0),
-                    Page(index:1),
-                    Page(index:2),
+                    Page(index: 0),
+                    Page(index: 1),
+                    Page(index: 2),
                   ]),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -134,7 +140,7 @@ class Page extends StatelessWidget {
         children: <Widget>[
           recap,
           // Expanded(child: recap),
-          CategoryList(index: index,),
+          CategoryList(),
           // button,
         ],
       ),
