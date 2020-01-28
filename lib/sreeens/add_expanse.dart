@@ -73,7 +73,14 @@ class _AddExpanseState extends State<AddExpanse> {
     Expanse e = new Expanse(amount: a, causal: causal, data: selectedDate);
     setState(() {
       user.add(e, category);
-      print("Category: "+category+", Amount: "+amount.toString()+" ,Causal"+causal.toString()+" ,Data"+selectedDate.toString());
+      print("Category: " +
+          category +
+          ", Amount: " +
+          amount.toString() +
+          " ,Causal" +
+          causal.toString() +
+          " ,Data" +
+          selectedDate.toString());
       // user.add(ex2, "Travel");
       // user.add(ex1, "Food");
       // user.add(ex2, "Travel");
@@ -178,7 +185,7 @@ class _AddExpanseState extends State<AddExpanse> {
       // onEditingComplete: _submit,
     );
     return Container(
-      padding: EdgeInsets.only(top: 40.0, right: 16.0, left: 16.0),
+      padding: EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -193,6 +200,17 @@ class _AddExpanseState extends State<AddExpanse> {
 
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  RotatedBox(
+                    quarterTurns: 1,
+                    child: IconButton(
+                      color: Colors.red,
+                      icon: new Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () => {this.widget.addExpanse()},
+                    ),
+                  ),
                   amountTextField,
                   CustomRadio(changeCategory),
                   SizedBox(
