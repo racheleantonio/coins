@@ -1,4 +1,4 @@
-# testProject
+# coins
 
 A new Flutter project.
 

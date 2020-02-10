@@ -1,16 +1,15 @@
+import 'package:coins/models/expanse.dart';
+import 'package:coins/services/db.dart';
 import 'package:flutter/material.dart';
-import 'package:testProject/models/user.dart';
-import 'package:testProject/shared/util.dart';
+import 'package:coins/models/user.dart';
+import 'package:coins/shared/util.dart';
+
 
 class CategoryList extends StatelessWidget {
-  CategoryList({
-    Key key,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var categories = user.month[selectedMonth].expenseForCategory;
-
     return Expanded(
       child: ListView.builder(
         itemCount: categories.length,
@@ -23,9 +22,8 @@ class CategoryList extends StatelessWidget {
           // p=p!="NaN"?p:"0.00";
           return GestureDetector(
             onTap: () {
-              user.printC();
               selectedCategory = index;
-              selectedExpanse = -1;
+              selectedExpanse = null;
               Navigator.pushNamed(
                 context,
                 '/expanse',
@@ -74,7 +72,7 @@ class CategoryList extends StatelessWidget {
                           )),
                       Text(p + "%",
                           style: TextStyle(
-                            color: Colors.grey[800],
+                            color: greyColor,
                             fontSize: 12,
                           ))
                     ],

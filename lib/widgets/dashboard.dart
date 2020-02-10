@@ -1,10 +1,12 @@
+import 'package:coins/models/expanse.dart';
+import 'package:coins/services/db.dart';
 import 'package:flutter/material.dart';
 import '../shared/util.dart';
 
-import 'package:testProject/widgets/category_list.dart';
-import 'package:testProject/widgets/chart.dart';
+import 'package:coins/widgets/category_list.dart';
+import 'package:coins/widgets/chart.dart';
 import '../widgets/month_selector.dart';
-import 'package:testProject/models/user.dart';
+import 'package:coins/models/user.dart';
 
 class Dash extends StatefulWidget {
   final Function addExpanse;
@@ -25,18 +27,19 @@ class _DashState extends State<Dash> {
 
   void _incrementCounter() {
     setState(() {
-      user.add(ex1, "Cinema");
-      user.add(ex2, "Travel");
+      // user.add(ex1, "Cinema");
+      // user.add(ex2, "Travel");
       this.widget.addExpanse();
+      // _save();
     });
   }
 
+ 
   void _onPageViewChange(int page) {
     setState(() {
       selectedMonth = page;
       selectedCategory = -1;
-      selectedExpanse = -1;
-      user.printC();
+      selectedExpanse = null;
     });
   }
 
@@ -44,9 +47,7 @@ class _DashState extends State<Dash> {
     setState(() {
       selectedMonth = page;
       selectedCategory = -1;
-      selectedExpanse = -1;
-      user.printC();
-
+      selectedExpanse = null;
       controller.animateToPage(page,
           duration: Duration(milliseconds: 500), curve: Curves.ease);
     });

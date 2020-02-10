@@ -1,7 +1,8 @@
+import 'package:coins/models/expanse.dart';
 import 'package:flutter/material.dart';
-import 'package:testProject/models/user.dart';
-import 'package:testProject/widgets/card.dart';
-import 'package:testProject/widgets/expanses_list.dart';
+import 'package:coins/models/user.dart';
+import 'package:coins/widgets/card.dart';
+import 'package:coins/widgets/expanses_list.dart';
 import '../shared/util.dart';
 
 class ExpanseScreen extends StatefulWidget {
@@ -14,10 +15,9 @@ class ExpanseScreen extends StatefulWidget {
 }
 
 class ExpanseScreenState extends State<ExpanseScreen> {
-  void selectExpanse(int exp) {
+  void selectExpanse(Expanse exp) {
     setState(() {
       selectedExpanse = exp;
-      user.printC();
     });
   }
 

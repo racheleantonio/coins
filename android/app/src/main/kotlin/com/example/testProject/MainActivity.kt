@@ -1,4 +1,4 @@
-package com.example.testProject
+package com.example.coins
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

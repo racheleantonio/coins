@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:testProject/models/user.dart';
-import 'package:testProject/shared/util.dart';
+import 'package:coins/models/user.dart';
+import 'package:coins/shared/util.dart';
 
 class ExpanseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    if (selectedExpanse != -1) {
+    if (selectedExpanse != null) {
       child = Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                user.month[selectedMonth].expenseForCategory[selectedCategory]
-                    .list[selectedExpanse].causal
-                    .toString(),
+                // user.month[selectedMonth].expenseForCategory[selectedCategory]
+                //     .list[selectedExpanse]
+                selectedExpanse.causal.toString(),
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
               ),
               // SizedBox(width: 4),
-              Text(formatter.format(user
-                  .month[selectedMonth]
-                  .expenseForCategory[selectedCategory]
-                  .list[selectedExpanse]
-                  .data)),
+              Text(
+                  // formatter.format(user
+                  //   .month[selectedMonth]
+                  //   .expenseForCategory[selectedCategory]
+                  //   .list[selectedExpanse]
+                  //   .date)
+                  formatter.format(selectedExpanse.date)),
             ],
           ),
           SizedBox(height: 32),
           Text(
-            user.month[selectedMonth].expenseForCategory[selectedCategory]
-                    .list[selectedExpanse].amount
-                    .toStringAsFixed(2) +
-                "€",
+            // user.month[selectedMonth].expenseForCategory[selectedCategory]
+            //         .list[selectedExpanse].amount
+            selectedExpanse.amount.toStringAsFixed(2) + "€",
             style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 32,

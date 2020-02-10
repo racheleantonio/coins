@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testProject/models/user.dart';
+import 'package:coins/models/user.dart';
 
 class MonthSelector extends StatelessWidget {
 

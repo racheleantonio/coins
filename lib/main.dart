@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:testProject/sreeens/expanse.dart';
+import 'package:coins/sreeens/expanse.dart';
+import 'package:coins/shared/util.dart';
+import 'package:coins/services/db.dart';
 
 import 'sreeens/home.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await DB.init();
+  runApp(MyApp());
+}
+
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -13,7 +22,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        "/home": (context) => HomeScreen(),
+        "/home": (context) =>
+            // TodoList(),
+            HomeScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         "/expanse": (context) => ExpanseScreen(),
       },
@@ -24,7 +35,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xff3957F2),
           accentColor: Color(0xff2C45BF),
           textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black87,
+              bodyColor: textColor,
               displayColor: Colors.yellow,
               fontFamily: 'Gotham')
           // TextStyle(color: Colors.pink),
@@ -35,7 +46,9 @@ class MyApp extends StatelessWidget {
           //   body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
 
           ),
-      home: HomeScreen(title: 'Flutter Demo Home Page'),
+      home:
+          // TodoList(),
+          HomeScreen(title: 'Flutter Demo Home Page'),
     );
   }
 }

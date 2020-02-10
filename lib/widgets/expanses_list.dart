@@ -1,7 +1,8 @@
+import 'package:coins/services/db.dart';
 import 'package:flutter/material.dart';
-import 'package:testProject/models/expanse.dart';
-import 'package:testProject/models/user.dart';
-import 'package:testProject/shared/util.dart';
+import 'package:coins/models/expanse.dart';
+import 'package:coins/models/user.dart';
+import 'package:coins/shared/util.dart';
 
 // class ExpensesList extends StatefulWidget {
 //   ExpensesList({@required this.index});
@@ -16,7 +17,7 @@ import 'package:testProject/shared/util.dart';
 //   @override
 //   Widget build(BuildContext context) {
 
-class ExpensesList extends StatelessWidget {
+class ExpensesList extends StatefulWidget {
   final Function selectExpanse;
   ExpensesList({
     @required this.selectExpanse,
@@ -24,10 +25,30 @@ class ExpensesList extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _ExpensesListState createState() => _ExpensesListState();
+}
+
+class _ExpensesListState extends State<ExpensesList> {
+    @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
+
+  void refresh() async {
+    List<Map<String, dynamic>> _results = await DB.query(Expanse.table);
+    expanses = _results.map((item) => Expanse.fromMap(item)).toList();
+    debugPrint(expanses.toString());
+    setState(() {});
+  }
+
+  List<Expanse> expanses = [];
+
+  @override
   Widget build(BuildContext context) {
-    user.printC();
-    List<Expanse> expanses =
-        user.month[selectedMonth].expenseForCategory[selectedCategory].list;
+    // user.printC();
+    // List<Expanse> expanses =
+    //     user.month[selectedMonth].expenseForCategory[selectedCategory].list;
     // if (expanses.length == 0) return null;
 
     return Expanded(
@@ -44,7 +65,7 @@ class ExpensesList extends StatelessWidget {
           // p=p!="NaN"?p:"0.00";
           return GestureDetector(
             onTap: () {
-              selectExpanse(index);
+              widget.selectExpanse(expanses[index]);
               // selectedExpanse = index;
             },
             child: Container(
@@ -89,7 +110,7 @@ class ExpensesList extends StatelessWidget {
                           )),
                       Text(p + "%",
                           style: TextStyle(
-                            color: Colors.grey[800],
+                            color: greyColor,
                             fontSize: 12,
                           ))
                     ],

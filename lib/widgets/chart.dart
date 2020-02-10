@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:testProject/models/user.dart';
-import 'package:testProject/shared/util.dart';
+import 'package:coins/models/user.dart';
+import 'package:coins/shared/util.dart';
 
 // class HomePage extends StatefulWidget {
 //   _HomePageState createState() => _HomePageState();

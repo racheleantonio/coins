@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:testProject/shared/util.dart';
+import 'package:coins/shared/util.dart';
 
 const double _kDayPickerRowHeight = 42.0;
 const int _kMaxDayPickerRowCount = 6; // A 31 day month that starts on Saturday.
@@ -109,6 +109,7 @@ class _DatePickerHeader extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         // gradient: grad,
+        
         borderRadius: borderRadiusData,
       ),
       padding: padding,
@@ -685,6 +686,8 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
     );
     final Dialog dialog = Dialog(
         child: Container(
+        constraints: BoxConstraints(maxWidth:800.0),
+
       decoration: BoxDecoration(
         gradient: grad,
         color: theme.dialogBackgroundColor,

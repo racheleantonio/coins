@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:testProject/shared/util.dart';
+import 'package:coins/shared/util.dart';
 
 class CustomRadio extends StatefulWidget {
   Function callback;
@@ -93,7 +93,6 @@ class RadioItem extends StatelessWidget {
       // padding:  EdgeInsets.all(2),
 
       decoration: BoxDecoration(
-        // color: Colors.grey,
         gradient: grad2,
         borderRadius: const BorderRadius.all(const Radius.circular(28.0)),
         boxShadow: [boxShadow],
@@ -136,7 +135,6 @@ class RadioItem extends StatelessWidget {
         ),
         decoration: new BoxDecoration(
           color: _item.isSelected ? Colors.transparent : Colors.white,
-          // border: _item.isSelected?null:new Border.all(width: 1, color: Colors.grey[400]),
           borderRadius: const BorderRadius.all(const Radius.circular(28.0)),
         ),
       ),

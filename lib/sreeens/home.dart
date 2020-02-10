@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:testProject/sreeens/add_expanse.dart';
-import 'package:testProject/widgets/dashboard.dart';
+import 'package:coins/sreeens/add_expanse.dart';
+import 'package:coins/widgets/dashboard.dart';
 import '../shared/util.dart';
 
 class HomeScreen extends StatefulWidget {

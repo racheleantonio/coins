@@ -1,29 +1,15 @@
+import 'package:coins/services/db.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:testProject/models/expanse.dart';
-import 'package:testProject/widgets/date_picker.dart';
-import 'package:testProject/widgets/radio_button.dart';
+import 'package:coins/models/expanse.dart';
+import 'package:coins/widgets/date_picker.dart';
+import 'package:coins/widgets/radio_button.dart';
 import '../shared/util.dart';
-// import 'package:flutter_rounded_date_picker/rounded_picker.dart';
-import 'package:testProject/models/user.dart';
+import 'package:coins/models/user.dart';
 
-class DecimalNumberEditingRegexValidator extends RegexValidator {
-  DecimalNumberEditingRegexValidator()
-      : super(regexSource: "^\$|^(0|([1-9][0-9]{0,3}))(\\.[0-9]{0,2})?\$");
-}
 
-class DecimalNumberSubmitValidator implements StringValidator {
-  @override
-  bool isValid(String value) {
-    try {
-      final number = double.parse(value);
-      return number > 0.0;
-    } catch (e) {
-      return false;
-    }
-  }
-}
+
 
 class AddExpanse extends StatefulWidget {
   final Function addExpanse;
@@ -32,6 +18,15 @@ class AddExpanse extends StatefulWidget {
   @override
   _AddExpanseState createState() => _AddExpanseState();
 }
+ void _save(Expanse e) async {
+    await DB.insert(Expanse.table, e);
+    debugPrint('insert done');
+    List<Map<String, dynamic>> _results = await DB.query(Expanse.table);
+    var s = _results.map((item) => Expanse.fromMap(item)).toList();
+    debugPrint(s.toString());
+  }
+
+
 
 class _AddExpanseState extends State<AddExpanse> {
   final myController = TextEditingController();
@@ -70,22 +65,11 @@ class _AddExpanseState extends State<AddExpanse> {
 
   void _incrementCounter() {
     double a = double.tryParse(amount);
-    Expanse e = new Expanse(amount: a, causal: causal, data: selectedDate);
+    Expanse e = new Expanse(a, causal,selectedDate);
     setState(() {
       user.add(e, category);
-      print("Category: " +
-          category +
-          ", Amount: " +
-          amount.toString() +
-          " ,Causal" +
-          causal.toString() +
-          " ,Data" +
-          selectedDate.toString());
-      // user.add(ex2, "Travel");
-      // user.add(ex1, "Food");
-      // user.add(ex2, "Travel");
-      // user.add(ex3, "Travel");
       this.widget.addExpanse();
+      _save(e);
     });
   }
 
@@ -111,7 +95,7 @@ class _AddExpanseState extends State<AddExpanse> {
     //       DateTime.now(),
     //       onDateChange: (date) {
     //         // New date selected
-    //         print(date.day.toString());
+    //         debugPrint(date.day.toString());
     //       },
     //     ),
     //   ],
@@ -167,7 +151,7 @@ class _AddExpanseState extends State<AddExpanse> {
         // prefixStyle:  TextAlign.center,
       ),
       //  InputDecoration.collapsed(hintText: '\€0.00'),
-      style: TextStyle(fontSize: 40.0, color: Colors.black87),
+      style: TextStyle(fontSize: 40.0, color: textColor),
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
       // autofocus: true,
@@ -185,7 +169,7 @@ class _AddExpanseState extends State<AddExpanse> {
       // onEditingComplete: _submit,
     );
     return Container(
-      padding: EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
+      padding: EdgeInsets.only(right: 16.0, left: 16.0),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -203,10 +187,9 @@ class _AddExpanseState extends State<AddExpanse> {
                   RotatedBox(
                     quarterTurns: 1,
                     child: IconButton(
-                      color: Colors.red,
                       icon: new Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.grey,
+                        color: greyColor,
                       ),
                       onPressed: () => {this.widget.addExpanse()},
                     ),
@@ -228,48 +211,5 @@ class _AddExpanseState extends State<AddExpanse> {
         ],
       ),
     );
-  }
-}
-
-class ValidatorInputFormatter implements TextInputFormatter {
-  ValidatorInputFormatter({this.editingValidator});
-  final StringValidator editingValidator;
-
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final oldValueValid = editingValidator.isValid(oldValue.text);
-    final newValueValid = editingValidator.isValid(newValue.text);
-    if (oldValueValid && !newValueValid) {
-      return oldValue;
-    }
-    return newValue;
-  }
-}
-
-abstract class StringValidator {
-  bool isValid(String value);
-}
-
-class RegexValidator implements StringValidator {
-  RegexValidator({this.regexSource});
-  final String regexSource;
-
-  /// value: the input string
-  /// returns: true if the input string is a full match for regexSource
-  bool isValid(String value) {
-    try {
-      final regex = RegExp(regexSource);
-      final matches = regex.allMatches(value);
-      for (Match match in matches) {
-        if (match.start == 0 && match.end == value.length) {
-          return true;
-        }
-      }
-      return false;
-    } catch (e) {
-      // Invalid regex
-      assert(false, e.toString());
-      return true;
-    }
   }
 }

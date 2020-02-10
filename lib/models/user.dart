@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 import 'expanse.dart';
 import 'package:intl/intl.dart';
 
@@ -17,17 +19,17 @@ class User {
 
   void add(Expanse e, String c) {
     month[selectedMonth].expenseForCategory.forEach((c1) => {
-          if (c == c1.name) {c1.list.add(e), c1.total += e.amount}
+          if(c == c1.name) {c1.list.add(e), c1.total += e.amount}
         });
     month[selectedMonth].total += e.amount;
   }
 
   void printC() {
-    print("month: " + selectedMonth.toString());
+    debugPrint("month: " + selectedMonth.toString());
 
-    print("category: " + selectedCategory.toString());
+    debugPrint("category: " + selectedCategory.toString());
 
-    print("expanse: " + selectedExpanse.toString());
+    debugPrint("expanse: " + selectedExpanse.toString());
   }
 }
 
@@ -74,14 +76,9 @@ class CategoryExpanse {
         this.list = [];
 }
 
-Expanse ex1 = new Expanse(
-    amount: 300.0,
-    causal: "Plane ticket",
-    data: new DateTime(2019, 11, 11, 11, 11));
-Expanse ex2 = new Expanse(
-    amount: 32.33, causal: "Lunch", data: new DateTime(2019, 11, 12, 11, 11));
-Expanse ex3 = new Expanse(
-    amount: 232.33, causal: "other", data: new DateTime(2019, 11, 12, 11, 11));
+Expanse ex1 = new Expanse(300.0, "Plane ticket", new DateTime(2019, 11, 11, 11, 11));
+Expanse ex2 = new Expanse(32.33, "Lunch", new DateTime(2019, 11, 12, 11, 11));
+Expanse ex3 = new Expanse(232.33, "other", new DateTime(2019, 11, 12, 11, 11));
 Month nov = new Month.mock("November");
 Month oct = new Month.mock("December");
 User user = User.mock('Ciccio', [oct, nov, new Month()]);
@@ -90,5 +87,5 @@ var s = user.add(ex1, "Food");
 var c = user.add(ex2, "Travel");
 var w32d33 = user.add(ex3, "Travel");
 int selectedMonth = 0;
-int selectedExpanse = -1;
+Expanse selectedExpanse;
 int selectedCategory = -1;
