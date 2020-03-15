@@ -18,10 +18,10 @@ class User {
         this.month = [new Month()];
 
   void add(Expanse e, String c) {
-    month[selectedMonth].expenseForCategory.forEach((c1) => {
-          if(c == c1.name) {c1.list.add(e), c1.total += e.amount}
-        });
-    month[selectedMonth].total += e.amount;
+    // month[selectedMonth].expenseForCategory.forEach((c1) => {
+    //       if(c == c1.name) {c1.list.add(e), c1.total += e.amount}
+    //     });
+    // month[selectedMonth].total += e.amount;
   }
 
   void printC() {
@@ -76,16 +76,16 @@ class CategoryExpanse {
         this.list = [];
 }
 
-Expanse ex1 = new Expanse(300.0, "Plane ticket", new DateTime(2019, 11, 11, 11, 11));
-Expanse ex2 = new Expanse(32.33, "Lunch", new DateTime(2019, 11, 12, 11, 11));
-Expanse ex3 = new Expanse(232.33, "other", new DateTime(2019, 11, 12, 11, 11));
+Expanse ex1 = new Expanse(300.0, "Plane ticket", new DateTime(2019, 11, 11, 11, 11),'Travel');
+Expanse ex2 = new Expanse(32.33, "Lunch", new DateTime(2019, 11, 12, 11, 11),'Food');
+Expanse ex3 = new Expanse(232.33, "other", new DateTime(2019, 11, 12, 11, 11),'Travel');
 Month nov = new Month.mock("November");
 Month oct = new Month.mock("December");
 User user = User.mock('Ciccio', [oct, nov, new Month()]);
 // user.selectedMonth=2;
-var s = user.add(ex1, "Food");
-var c = user.add(ex2, "Travel");
-var w32d33 = user.add(ex3, "Travel");
+// var s = user.add(ex1, "Food");
+// var c = user.add(ex2, "Travel");
+// var w32d33 = user.add(ex3, "Travel");
 int selectedMonth = 0;
 Expanse selectedExpanse;
 int selectedCategory = -1;

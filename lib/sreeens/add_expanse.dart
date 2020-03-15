@@ -8,9 +8,6 @@ import 'package:coins/widgets/radio_button.dart';
 import '../shared/util.dart';
 import 'package:coins/models/user.dart';
 
-
-
-
 class AddExpanse extends StatefulWidget {
   final Function addExpanse;
 
@@ -18,15 +15,14 @@ class AddExpanse extends StatefulWidget {
   @override
   _AddExpanseState createState() => _AddExpanseState();
 }
- void _save(Expanse e) async {
-    await DB.insert(Expanse.table, e);
-    debugPrint('insert done');
-    List<Map<String, dynamic>> _results = await DB.query(Expanse.table);
-    var s = _results.map((item) => Expanse.fromMap(item)).toList();
-    debugPrint(s.toString());
-  }
 
-
+void _save(Expanse e) async {
+  await DB.insert(Expanse.table, e);
+  debugPrint('insert done');
+  List<Map<String, dynamic>> _results = await DB.query(Expanse.table);
+  var s = _results.map((item) => Expanse.fromMap(item)).toList();
+  debugPrint(s.toString());
+}
 
 class _AddExpanseState extends State<AddExpanse> {
   final myController = TextEditingController();
@@ -65,9 +61,9 @@ class _AddExpanseState extends State<AddExpanse> {
 
   void _incrementCounter() {
     double a = double.tryParse(amount);
-    Expanse e = new Expanse(a, causal,selectedDate);
+    Expanse e = new Expanse(a, causal, selectedDate, category);
     setState(() {
-      user.add(e, category);
+      // user.add(e, category);
       this.widget.addExpanse();
       _save(e);
     });

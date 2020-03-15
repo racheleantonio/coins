@@ -54,7 +54,7 @@ class ExpanseScreenState extends State<ExpanseScreen> {
                           ExpanseCard(),
                           // recap,
                           // Expanded(child: recap),
-                          ExpensesList(selectExpanse:selectExpanse),
+                          ExpensesList(selectExpanse:selectExpanse,category:categoryList[selectedCategory]),
                           // button,
                         ],
                       ),

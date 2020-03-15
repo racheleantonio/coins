@@ -96,7 +96,7 @@ BoxShadow boxShadow = BoxShadow(
   //   4, // vertical, move down 10
   // ),
 );
-DateFormat formatter = new DateFormat('yyyy-MM-dd');
+DateFormat formatter = new DateFormat('dd-MM-yyyy');
 
 
 

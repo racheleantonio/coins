@@ -19,8 +19,10 @@ import 'package:coins/shared/util.dart';
 
 class ExpensesList extends StatefulWidget {
   final Function selectExpanse;
+  final String category;
   ExpensesList({
     @required this.selectExpanse,
+    @required this.category,
     Key key,
   }) : super(key: key);
 
@@ -36,8 +38,13 @@ class _ExpensesListState extends State<ExpensesList> {
   }
 
   void refresh() async {
-    List<Map<String, dynamic>> _results = await DB.query(Expanse.table);
+    List<Map<String, dynamic>> _results = 
+    // await DB.query(Expanse.table);
+      await DB.queryWhere(Expanse.table,widget.category);
+
     expanses = _results.map((item) => Expanse.fromMap(item)).toList();
+
+
     debugPrint(expanses.toString());
     setState(() {});
   }

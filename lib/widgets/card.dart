@@ -10,6 +10,45 @@ class ExpanseCard extends StatelessWidget {
     if (selectedExpanse != null) {
       child = Column(
         children: <Widget>[
+          Center(
+            // height: 32,
+            // color: Colors.black,
+            // decoration: BoxDecoration(
+            //   gradient: grad,
+            //   shape: BoxShape.rectangle,
+            //   borderRadius: BorderRadius.circular(21),
+            // ),
+            // padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                // Icon(
+                //   icons[categoryList[selectedCategory]],
+                //   color: Colors.white,
+                //   size: 32.0,
+                //   semanticLabel: 'Text to announce in accessibility modes',
+                // ),
+                // SizedBox(
+                //   width: 8,
+                // ),
+                Text(
+                  // user.month[selectedMonth].expenseForCategory[selectedCategory]
+                  //     .list[selectedExpanse]
+                  selectedExpanse.category.toString().toUpperCase(),
+                  textAlign: TextAlign.center,
+
+                  style: TextStyle(
+                      // height: 55,
+                      fontWeight: FontWeight.w900,
+                      // fontSize: 12,
+                      color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -59,8 +98,8 @@ class ExpanseCard extends StatelessWidget {
     }
     return Container(
       child: child,
-      margin: EdgeInsets.only(top: 28, bottom: 28),
-      padding: EdgeInsets.only(top: 32, bottom: 32, left: 16, right: 16),
+      // margin: EdgeInsets.only(top: 28, bottom: 28),
+      padding: EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         // gradient: grad2,
