@@ -31,25 +31,24 @@ class ExpensesList extends StatefulWidget {
 }
 
 class _ExpensesListState extends State<ExpensesList> {
-    @override
+  List<Expanse> expanses = [];
+
+  @override
   void initState() {
     refresh();
     super.initState();
   }
 
   void refresh() async {
-    List<Map<String, dynamic>> _results = 
-    // await DB.query(Expanse.table);
-      await DB.queryWhere(Expanse.table,widget.category);
+    List<Map<String, dynamic>> _results =
+        // await DB.query(Expanse.table);
+        await DB.queryWhere(Expanse.table, widget.category);
 
     expanses = _results.map((item) => Expanse.fromMap(item)).toList();
-
 
     debugPrint(expanses.toString());
     setState(() {});
   }
-
-  List<Expanse> expanses = [];
 
   @override
   Widget build(BuildContext context) {

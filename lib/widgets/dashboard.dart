@@ -34,7 +34,6 @@ class _DashState extends State<Dash> {
     });
   }
 
- 
   void _onPageViewChange(int page) {
     setState(() {
       selectedMonth = page;
@@ -107,14 +106,38 @@ class _DashState extends State<Dash> {
   }
 }
 
-class Page extends StatelessWidget {
+class Page extends StatefulWidget {
   final int index;
   Page({@required this.index});
 
   @override
+  _PageState createState() => _PageState();
+}
+
+class _PageState extends State<Page> {
+  double total;
+  @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
+
+  void refresh() async {
+    // List<Map<String, dynamic>> _results =
+    // // await DB.query(Expanse.table);
+    //   await DB.queryWhere(Expanse.table,widget.category);
+     List<Map<String, dynamic>> _results =await DB.querySumMonth(Expanse.table);
+     total= _results[0]['Total'];
+    // expanses = _results.map((item) => Expanse.fromMap(item)).toList();
+
+    // debugPrint(expanses.toString());
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var total = new Text(
-      user.month[index].total.toStringAsFixed(2) + '€',
+    var textTotal = new Text(
+      total != null ? total.toStringAsFixed(2) + '€' : '. . .',
       style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
       textAlign: TextAlign.center,
     );
@@ -125,16 +148,16 @@ class Page extends StatelessWidget {
     );
     var inner = new ListView(
       children: <Widget>[
-        total,
+        textTotal,
         average,
       ],
     );
-    var chart = Chart(index: index);
+    var chart = Chart(index: widget.index);
 
     var recap = new Container(
         height: 250,
         width: 250,
-        child: new Stack(children: <Widget>[chart, Center(child: total)]));
+        child: new Stack(children: <Widget>[chart, Center(child: textTotal)]));
     return Container(
       padding: EdgeInsets.only(top: 20.0, right: 16.0, left: 16.0),
       child: Column(

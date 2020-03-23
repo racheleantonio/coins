@@ -6,46 +6,55 @@ class Expanse extends Model {
   static String table = 'expanse_items';
 
   // int id;
-  double amount;
   String causal;
-  DateTime date;
   String category;
+  double amount;
+  DateTime date;
+  String month;
 
   // static int counter = 0;
-  Expanse(this.amount, this.causal, this.date, this.category);
+  Expanse(this.causal, this.category, this.amount, this.date, this.month);
   Expanse.map(
       // int id,
-      double amount,
       String causal,
+      double amount,
+      String category,
       String date,
-      String category) {
+      String month) {
     // this.id = id;
     this.amount = amount;
     this.causal = causal;
     this.date = formatter.parse(date);
     this.category = category;
+    this.month= month;
   }
-  Expanse createExpanse() {
-    var thisInstant = new DateTime.now();
-    return new Expanse(20, "testo", thisInstant, 'Cinema');
-  }
+  // Expanse createExpanse() {
+  //   var thisInstant = new DateTime.now();
+  //   return new Expanse(20, "testo", thisInstant, 'Cinema');
+  // }
 
   @override
   String toString() {
-    return this.id.toString() +
-        ':' +
+    return 
         this.causal.toString() +
         ':' +
-        this.date.toString();
+         this.amount.toString() +
+        ':' +
+        this.date.toString() +
+        ':' +
+        this.category.toString()+
+          ':' +
+        this.month.toString() ;
   }
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     debugPrint(formatter.format(date).toString());
-    map['amount'] = amount;
     map['causal'] = causal;
-    map['date'] = formatter.format(date);
+    map['amount'] = amount;
     map['category'] = category;
+    map['date'] = formatter.format(date);
+    map['month'] = category;
     return map;
   }
   // await db.execute('CREATE TABLE todo_items (id INTEGER PRIMARY KEY NOT NULL, amount REAL, causal TEXT, date TEXT');
@@ -57,9 +66,11 @@ class Expanse extends Model {
         ' ' +
         map['amount'].toString() +
         ' ' +
-        map['date']);
-    return new Expanse.map(
-        map['amount'], map['causal'], map['date'], map['category']);
+        map['date'] +
+        ' ' +
+        map['month']);
+    return new Expanse.map(map['causal'], map['amount'], map['category'],
+        map['date'], map['month']);
     // return Expanse.map(map['id'], map['causal'], map['amount'], map['data']);
   }
 }

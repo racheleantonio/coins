@@ -27,7 +27,7 @@ abstract class DB {
   }
 
   static void onCreate(Database db, int version) async => await db.execute(
-      'CREATE TABLE expanse_items (id INTEGER PRIMARY KEY AUTOINCREMENT, amount REAL, causal TEXT, date TEXT, category TEXT)');
+      'CREATE TABLE expanse_items (id INTEGER PRIMARY KEY AUTOINCREMENT, amount REAL, causal TEXT, date TEXT, category TEXT, month TEXT)');
 
   static Future<List<Map<String, dynamic>>> query(String table) async =>
       _db.query(table);
@@ -35,6 +35,13 @@ abstract class DB {
   static Future<List<Map<String, dynamic>>> queryWhere(
           String table, String category) async =>
       _db.query(table, where: 'category = ?', whereArgs: [category]);
+
+    static Future<List<Map<String, dynamic>>> querySumMonth(
+          String table) async =>
+      _db.rawQuery("SELECT SUM(amount) FROM expanse_items");
+    // static Future<List<Map<String, dynamic>>> querySumMonth(
+    //       String table, String category) async =>
+    //   _db.query(table, where: 'category = ?', whereArgs: [category]);
 
   static Future<int> insert(String table, Model model) async =>
       await _db.insert(table, model.toMap());

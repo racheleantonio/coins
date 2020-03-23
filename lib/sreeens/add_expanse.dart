@@ -61,7 +61,7 @@ class _AddExpanseState extends State<AddExpanse> {
 
   void _incrementCounter() {
     double a = double.tryParse(amount);
-    Expanse e = new Expanse(a, causal, selectedDate, category);
+    Expanse e = new Expanse(causal,category,a, selectedDate,mFormatter.format(selectedDate));
     setState(() {
       // user.add(e, category);
       this.widget.addExpanse();

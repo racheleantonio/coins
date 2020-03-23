@@ -76,9 +76,8 @@ class CategoryExpanse {
         this.list = [];
 }
 
-Expanse ex1 = new Expanse(300.0, "Plane ticket", new DateTime(2019, 11, 11, 11, 11),'Travel');
-Expanse ex2 = new Expanse(32.33, "Lunch", new DateTime(2019, 11, 12, 11, 11),'Food');
-Expanse ex3 = new Expanse(232.33, "other", new DateTime(2019, 11, 12, 11, 11),'Travel');
+Expanse ex1 = new Expanse("Plane ticket",'Travel',300.0, new DateTime(2019, 11, 11, 11, 11),'Mar20' );
+Expanse ex2 = new Expanse("Plane ticket",'Travel',300.0, new DateTime(2019, 11, 11, 11, 11),'Mar20' );
 Month nov = new Month.mock("November");
 Month oct = new Month.mock("December");
 User user = User.mock('Ciccio', [oct, nov, new Month()]);
